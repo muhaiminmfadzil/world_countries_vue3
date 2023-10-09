@@ -5,9 +5,9 @@ import CountryTable from '@/components/CountryTable.vue'
 
 <template>
   <!-- Search -->
-  <CountrySearch />
+  <CountrySearch data-test="search" />
   <!-- Table -->
-  <CountryTable />
+  <CountryTable data-test="table" />
 </template>
 
 <style scoped></style>
