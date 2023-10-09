@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CountryTable from '@/components/CountryTable.vue'
+import CountryListing from '@/components/CountryListing.vue'
 </script>
 
 <template>
@@ -8,6 +8,7 @@ import CountryTable from '@/components/CountryTable.vue'
     <h1 class="text-3xl font-semibold">World Countries</h1>
     <!-- Descriptions -->
     <p class="mt-2 text-sm text-gray-700">A list of all the countries in the world</p>
-    <CountryTable />
+    <!-- Listing -->
+    <CountryListing />
   </main>
 </template>
