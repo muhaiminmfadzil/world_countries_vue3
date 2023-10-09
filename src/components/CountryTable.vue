@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const countries = [
   {
@@ -18,8 +19,25 @@ const countries = [
 </script>
 
 <template>
+  <!-- Search -->
+  <div>
+    <div class="flex mt-4 mb-2 rounded-md shadow-sm">
+      <div class="relative flex items-stretch flex-grow focus-within:z-10">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <MagnifyingGlassIcon class="w-4 h-4 text-gray-400" aria-hidden="true" />
+        </div>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          placeholder="Search by country or capital name"
+        />
+      </div>
+    </div>
+  </div>
   <div class="px-4 sm:px-6 lg:px-8">
-    <div class="flow-root mt-8">
+    <div class="flow-root">
       <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle">
           <table class="min-w-full border-separate border-spacing-0">
