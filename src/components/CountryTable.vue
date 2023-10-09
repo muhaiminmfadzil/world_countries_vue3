@@ -7,13 +7,22 @@ const countries = [
     name: 'Malaysia',
     region: 'Asia',
     capital: 'Kuala Lumpur',
-    flag: '🇲🇾'
+    flag: '🇲🇾',
+    selected: true
   },
   {
     name: 'Malaysia',
     region: 'Asia',
     capital: 'Kuala Lumpur',
-    flag: '🇲🇾'
+    flag: '🇲🇾',
+    selected: false
+  },
+  {
+    name: 'Malaysia',
+    region: 'Asia',
+    capital: 'Kuala Lumpur',
+    flag: '🇲🇾',
+    selected: true
   }
 ]
 </script>
@@ -92,7 +101,11 @@ const countries = [
               </tr>
             </thead>
             <tbody class="bg-white">
-              <tr v-for="(country, countryIdx) in countries" :key="country.name">
+              <tr
+                v-for="(country, countryIdx) in countries"
+                :key="country.name"
+                :class="[{ 'bg-indigo-100': country.selected }]"
+              >
                 <td
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
@@ -102,7 +115,7 @@ const countries = [
                   <input
                     type="checkbox"
                     class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
-                    :value="country.name"
+                    v-model="country.selected"
                   />
                 </td>
                 <td
@@ -116,7 +129,8 @@ const countries = [
                 <td
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    'whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell'
+                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    'whitespace-nowrap px-3 py-4 text-sm sm:table-cell'
                   ]"
                 >
                   {{ country.name }}
@@ -124,7 +138,8 @@ const countries = [
                 <td
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    'whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell'
+                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
                   {{ country.region }}
@@ -132,7 +147,8 @@ const countries = [
                 <td
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    'whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell'
+                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
                   {{ country.capital }}
