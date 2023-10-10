@@ -13,7 +13,7 @@ export const useCountryStore = defineStore('country', () => {
   // Search countries
   const searchText = ref('')
   // Get filtered countries
-  const countries = computed(() => {
+  const filteredCountries = computed(() => {
     const search = searchText.value.toLowerCase()
     return (
       allCountries.value
@@ -56,7 +56,6 @@ export const useCountryStore = defineStore('country', () => {
   })
   // Set selected country
   const setSelectedCountry = (selectedCountry: ICountrySanitize) => {
-    console.log(selectedCountry)
     const index = allCountries.value.findIndex((country) => country.id === selectedCountry.id)
     if (index >= 0) {
       allCountries.value.splice(index, 1, selectedCountry)
@@ -65,7 +64,7 @@ export const useCountryStore = defineStore('country', () => {
 
   return {
     allCountries,
-    countries,
+    filteredCountries,
     setCountries,
     searchText,
     getLocalSelectedCountries,

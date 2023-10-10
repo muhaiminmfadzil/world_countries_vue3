@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+
 import { useCountryStore } from '@/stores/country'
 import type { ICountrySanitize } from '@/interfaces/country'
+import CountryTableHead from '@/components/CountryTableHead.vue'
 // Country store
 const countryStore = useCountryStore()
 // Data
-const { countries } = storeToRefs(countryStore)
+const { filteredCountries } = storeToRefs(countryStore)
 // Selection
 const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
   const selection = { ...selectedCountry, isSelected: !selectedCountry.isSelected }
@@ -21,68 +22,11 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
         <div class="inline-block min-w-full py-2 align-middle">
           <table class="min-w-full border-separate border-spacing-0">
             <!-- Table Head -->
-            <thead data-test="table-head">
-              <tr>
-                <th
-                  data-test="head-checkbox"
-                  class="sticky top-0 z-10 w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
-                >
-                  <input
-                    type="checkbox"
-                    class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
-                  />
-                </th>
-                <th
-                  data-test="head-flag"
-                  class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
-                >
-                  Flag
-                </th>
-                <th
-                  data-test="head-name"
-                  class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
-                >
-                  <a href="#" class="inline-flex group">
-                    Name
-                    <span
-                      class="flex-none ml-2 text-gray-900 bg-gray-100 rounded group-hover:bg-gray-200"
-                    >
-                      <ChevronDownIcon class="w-5 h-5" aria-hidden="true" />
-                    </span>
-                  </a>
-                </th>
-                <th
-                  data-test="head-region"
-                  class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
-                >
-                  <a href="#" class="inline-flex group">
-                    Region
-                    <span
-                      class="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
-                    >
-                      <ChevronDownIcon class="w-5 h-5" aria-hidden="true" />
-                    </span>
-                  </a>
-                </th>
-                <th
-                  data-test="head-capital"
-                  class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
-                >
-                  <a href="#" class="inline-flex group">
-                    Capital
-                    <span
-                      class="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
-                    >
-                      <ChevronDownIcon class="w-5 h-5" aria-hidden="true" />
-                    </span>
-                  </a>
-                </th>
-              </tr>
-            </thead>
+            <CountryTableHead />
             <!-- Table Body -->
             <tbody class="bg-white">
               <tr
-                v-for="(country, countryIdx) in countries"
+                v-for="(country, countryIdx) in filteredCountries"
                 :key="country.name"
                 data-test="data-row"
                 :class="[{ 'bg-indigo-100': country.isSelected }]"
@@ -90,21 +34,21 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
                 <td
                   data-test="data-checkbox"
                   :class="[
-                    countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
+                    countryIdx !== filteredCountries.length - 1 ? 'border-b border-gray-200' : '',
                     'relative w-12 px-7'
                   ]"
                 >
                   <input
                     type="checkbox"
                     class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
-                    v-model="country.isSelected"
+                    :checked="country.isSelected"
                     @click="handleSelectedCountry(country)"
                   />
                 </td>
                 <td
                   data-test="data-flag"
                   :class="[
-                    countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
+                    countryIdx !== filteredCountries.length - 1 ? 'border-b border-gray-200' : '',
                     'whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell'
                   ]"
                 >
@@ -113,7 +57,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
                 <td
                   data-test="data-name"
                   :class="[
-                    countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
+                    countryIdx !== filteredCountries.length - 1 ? 'border-b border-gray-200' : '',
                     country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm sm:table-cell'
                   ]"
@@ -123,7 +67,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
                 <td
                   data-test="data-region"
                   :class="[
-                    countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
+                    countryIdx !== filteredCountries.length - 1 ? 'border-b border-gray-200' : '',
                     country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
@@ -133,7 +77,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
                 <td
                   data-test="data-capital"
                   :class="[
-                    countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
+                    countryIdx !== filteredCountries.length - 1 ? 'border-b border-gray-200' : '',
                     country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
