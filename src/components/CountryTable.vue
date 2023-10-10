@@ -1,29 +1,13 @@
 <script setup lang="ts">
+import { toRef } from 'vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
-
-const countries = [
-  {
-    name: 'Malaysia',
-    region: 'Asia',
-    capital: 'Kuala Lumpur',
-    flag: '🇲🇾',
-    selected: true
-  },
-  {
-    name: 'Malaysia',
-    region: 'Asia',
-    capital: 'Kuala Lumpur',
-    flag: '🇲🇾',
-    selected: false
-  },
-  {
-    name: 'Malaysia',
-    region: 'Asia',
-    capital: 'Kuala Lumpur',
-    flag: '🇲🇾',
-    selected: true
-  }
-]
+import type { ICountrySanitize } from '@/interfaces/country'
+// Props
+const props = defineProps<{
+  parentCountries: ICountrySanitize[]
+}>()
+// Countries
+const countries = toRef(props.parentCountries)
 </script>
 
 <template>
@@ -32,11 +16,12 @@ const countries = [
       <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle">
           <table class="min-w-full border-separate border-spacing-0">
+            <!-- Table Head -->
             <thead data-test="table-head">
               <tr>
                 <th
                   data-test="head-checkbox"
-                  class="relative w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
+                  class="sticky top-0 z-10 w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
                 >
                   <input
                     type="checkbox"
@@ -90,13 +75,16 @@ const countries = [
                 </th>
               </tr>
             </thead>
+            <!-- Table Body -->
             <tbody class="bg-white">
               <tr
                 v-for="(country, countryIdx) in countries"
-                :key="country.name"
-                :class="[{ 'bg-indigo-100': country.selected }]"
+                :key="country.name.common"
+                data-test="data-row"
+                :class="[{ 'bg-indigo-100': country.isSelected }]"
               >
                 <td
+                  data-test="data-checkbox"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
                     'relative w-12 px-7'
@@ -105,10 +93,11 @@ const countries = [
                   <input
                     type="checkbox"
                     class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
-                    v-model="country.selected"
+                    v-model="country.isSelected"
                   />
                 </td>
                 <td
+                  data-test="data-flag"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
                     'whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell'
@@ -117,27 +106,30 @@ const countries = [
                   {{ country.flag }}
                 </td>
                 <td
+                  data-test="data-name"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm sm:table-cell'
                   ]"
                 >
-                  {{ country.name }}
+                  {{ country.name.common }}
                 </td>
                 <td
+                  data-test="data-region"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
                   {{ country.region }}
                 </td>
                 <td
+                  data-test="data-capital"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
