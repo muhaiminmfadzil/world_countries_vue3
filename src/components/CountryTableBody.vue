@@ -21,7 +21,13 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
       v-for="(country, countryIdx) in filteredCountries"
       :key="country.name"
       data-test="data-row"
-      :class="[{ 'bg-indigo-100': country.isSelected }]"
+      class="text-lg cursor-pointer"
+      :class="[
+        country.isSelected
+          ? 'bg-indigo-100 hover:shadow-inner hover:bg-indigo-200'
+          : 'hover:shadow-lg'
+      ]"
+      @click="handleSelectedCountry(country)"
     >
       <td
         data-test="data-checkbox"
@@ -32,9 +38,8 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
       >
         <input
           type="checkbox"
-          class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
+          class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded cursor-pointer left-4 top-1/2 focus:ring-indigo-600"
           :checked="country.isSelected"
-          @click="handleSelectedCountry(country)"
         />
       </td>
       <td
