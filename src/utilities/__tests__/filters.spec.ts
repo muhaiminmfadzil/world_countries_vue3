@@ -9,7 +9,7 @@ describe('Filter alllowed object properties', () => {
     wife: ['Isteri pertama', 'Isteri kedua']
   }
 
-  it('filter allowed properties', () => {
+  it('filter allowed properties in normal case', () => {
     const allowedProperties = ['name', 'age']
     const expectedResult = {
       name: dataObject.name,
@@ -35,6 +35,22 @@ describe('Filter alllowed object properties', () => {
     }
     expect(filterAllowedObjectProperties(dataObject, allowedProperties3)).toStrictEqual(
       expectedResult3
+    )
+  })
+
+  it('filter allowed properties and neglect non-existed properties', () => {
+    const allowedProperties = ['name', 'non-exist']
+    const expectedResult = {
+      name: dataObject.name
+    }
+    expect(filterAllowedObjectProperties(dataObject, allowedProperties)).toStrictEqual(
+      expectedResult
+    )
+
+    const allowedProperties2 = ['non-exist']
+    const expectedResult2 = {}
+    expect(filterAllowedObjectProperties(dataObject, allowedProperties2)).toStrictEqual(
+      expectedResult2
     )
   })
 })
