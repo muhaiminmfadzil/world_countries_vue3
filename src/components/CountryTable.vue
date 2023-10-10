@@ -1,29 +1,13 @@
 <script setup lang="ts">
+import { toRef } from 'vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import type { ICountrySanitize } from '@/interfaces/country'
+// Props
+const props = defineProps<{
+  parentCountries: ICountrySanitize[]
+}>()
 
-const countries = [
-  {
-    name: 'Malaysia',
-    region: 'Asia',
-    capital: 'Kuala Lumpur',
-    flag: '🇲🇾',
-    selected: true
-  },
-  {
-    name: 'Malaysia',
-    region: 'Asia',
-    capital: 'Kuala Lumpur',
-    flag: '🇲🇾',
-    selected: false
-  },
-  {
-    name: 'Malaysia',
-    region: 'Asia',
-    capital: 'Kuala Lumpur',
-    flag: '🇲🇾',
-    selected: true
-  }
-]
+const countries = toRef(props.parentCountries)
 </script>
 
 <template>
@@ -32,6 +16,7 @@ const countries = [
       <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle">
           <table class="min-w-full border-separate border-spacing-0">
+            <!-- Table Head -->
             <thead data-test="table-head">
               <tr>
                 <th
@@ -90,11 +75,12 @@ const countries = [
                 </th>
               </tr>
             </thead>
+            <!-- Table Body -->
             <tbody class="bg-white">
               <tr
                 v-for="(country, countryIdx) in countries"
-                :key="country.name"
-                :class="[{ 'bg-indigo-100': country.selected }]"
+                :key="country.name.common"
+                :class="[{ 'bg-indigo-100': country.isSelected }]"
               >
                 <td
                   :class="[
@@ -105,7 +91,7 @@ const countries = [
                   <input
                     type="checkbox"
                     class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
-                    v-model="country.selected"
+                    v-model="country.isSelected"
                   />
                 </td>
                 <td
@@ -119,16 +105,16 @@ const countries = [
                 <td
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm sm:table-cell'
                   ]"
                 >
-                  {{ country.name }}
+                  {{ country.name.common }}
                 </td>
                 <td
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
@@ -137,7 +123,7 @@ const countries = [
                 <td
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
-                    country.selected ? 'text-indigo-500 font-medium' : 'text-gray-500',
+                    country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
