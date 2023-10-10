@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
-
-// Country store
 import { useCountryStore } from '@/stores/country'
+// Country store
 const countryStore = useCountryStore()
 // Data
 const { countries } = storeToRefs(countryStore)
@@ -78,7 +77,7 @@ const { countries } = storeToRefs(countryStore)
             <tbody class="bg-white">
               <tr
                 v-for="(country, countryIdx) in countries"
-                :key="country.name.common"
+                :key="country.name"
                 data-test="data-row"
                 :class="[{ 'bg-indigo-100': country.isSelected }]"
               >
@@ -112,7 +111,7 @@ const { countries } = storeToRefs(countryStore)
                     'whitespace-nowrap px-3 py-4 text-sm sm:table-cell'
                   ]"
                 >
-                  {{ country.name.common }}
+                  <div v-html="country.name"></div>
                 </td>
                 <td
                   data-test="data-region"
@@ -132,7 +131,7 @@ const { countries } = storeToRefs(countryStore)
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
-                  {{ country.capital }}
+                  <div v-html="country.capital"></div>
                 </td>
               </tr>
             </tbody>

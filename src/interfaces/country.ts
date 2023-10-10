@@ -1,7 +1,7 @@
 export interface ICountrySanitize {
   isSelected: boolean
   flag: string
-  name: IName
+  name: string
   capital?: string
   region: ERegion
 }

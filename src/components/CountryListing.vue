@@ -32,6 +32,8 @@ const sanitizeCountry = (obj: ICountry): ICountrySanitize => {
   const newObj: any = filterAllowedObjectProperties(obj, allowedProperties)
   // selected checkbox
   newObj.isSelected = false
+  // name to string
+  newObj.name = obj.name.common
   // capital to string
   newObj.capital = obj.capital ? obj.capital.join(', ') : ''
 

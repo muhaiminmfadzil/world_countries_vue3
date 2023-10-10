@@ -1,5 +1,7 @@
 // Import tailwind
 import './styles/tailwind.css'
+// Import global css
+import './styles/global.css'
 // Vue setup
 import { createApp } from 'vue'
 // Pinia
