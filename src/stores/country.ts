@@ -40,7 +40,7 @@ export const useCountryStore = defineStore('country', () => {
   })
   // Selected countries key
   const SELECTED_COUNTRIES_KEY = 'selected_countries'
-  // Filter selected countries
+  // Filter selected countries and return by ids
   const filterSelectedCountries = computed(() => {
     return allCountries.value.filter((country) => country.isSelected).map((country) => country.id)
   })

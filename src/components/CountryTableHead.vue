@@ -9,7 +9,7 @@ const { filterSelectedCountries } = storeToRefs(countryStore)
 </script>
 
 <template>
-  <div>{{ filterSelectedCountries }}</div>
+  <!-- <div>{{ filterSelectedCountries }}</div> -->
   <!-- Table Head -->
   <thead data-test="table-head">
     <tr>
