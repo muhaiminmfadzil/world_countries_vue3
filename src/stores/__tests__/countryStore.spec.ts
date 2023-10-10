@@ -51,6 +51,9 @@ describe('Country Store', () => {
     ]
     countryStore.setCountries(testData)
     // Filter by text
+    const span = (value: string) => {
+      return `<span class="highlight">${value}</span>`
+    }
     const testSearch = [
       {
         text: '',
@@ -61,37 +64,30 @@ describe('Country Store', () => {
       {
         text: 'sia',
         totalFound: 2,
-        foundCountryName: [
-          'Malay<span class="highlight">sia</span>',
-          'Indone<span class="highlight">sia</span>'
-        ],
+        foundCountryName: [`Malay${span('sia')}`, `Indone${span('sia')}`],
         foundCapitalName: ['Kuala Lumpur', 'Jakarta']
       },
       {
         text: 'malaysia',
         totalFound: 1,
-        foundCountryName: ['<span class="highlight">Malaysia</span>'],
+        foundCountryName: [`${span('Malaysia')}`],
         foundCapitalName: ['Kuala Lumpur']
       },
       {
         text: 'ku',
         totalFound: 2,
-        foundCountryName: ['Malaysia', 'One Piece <span class="highlight">ku</span>'],
-        foundCapitalName: ['<span class="highlight">Ku</span>ala Lumpur', 'Ruftel, Wano, Alabasta']
+        foundCountryName: ['Malaysia', `One Piece ${span('ku')}`],
+        foundCapitalName: [`${span('Ku')}ala Lumpur`, 'Ruftel, Wano, Alabasta']
       },
       {
         text: 'o',
         totalFound: 3,
         foundCountryName: [
-          'Ind<span class="highlight">o</span>nesia',
-          'Singap<span class="highlight">o</span>re',
-          '<span class="highlight">O</span>ne Piece ku'
+          `Ind${span('o')}nesia`,
+          `Singap${span('o')}re`,
+          `${span('O')}ne Piece ku`
         ],
-        foundCapitalName: [
-          'Jakarta',
-          'Singap<span class="highlight">o</span>re',
-          'Ruftel, Wan<span class="highlight">o</span>, Alabasta'
-        ]
+        foundCapitalName: ['Jakarta', `Singap${span('o')}re`, `Ruftel, Wan${span('o')}, Alabasta`]
       }
     ]
 

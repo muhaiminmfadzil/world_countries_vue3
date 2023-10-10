@@ -20,12 +20,14 @@ export const filterAllowedObjectProperties = (
 }
 
 /**
+ * Filter word and return word with span highlighted if query found in the word
  *
- * @param word
- * @param query
- * @returns
+ * @param word - word to check for highlight
+ * @param query - search query
+ * @returns string with <span class="highlight"> if query found in the word
  */
 export const stringHighlighter = (word: string, query: string) => {
+  // If no query, return word itself
   if (query.length === 0) return word
 
   const check = new RegExp(query, 'ig')
