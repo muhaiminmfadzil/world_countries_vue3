@@ -6,7 +6,7 @@ import type { ICountrySanitize } from '@/interfaces/country'
 const props = defineProps<{
   parentCountries: ICountrySanitize[]
 }>()
-
+// Countries
 const countries = toRef(props.parentCountries)
 </script>
 
