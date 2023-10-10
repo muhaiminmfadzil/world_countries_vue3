@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { ICountry } from '../interfaces/country'
+import type { ICountry } from '@/interfaces/country'
 
 export const getAllCountries = async () => {
   try {

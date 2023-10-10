@@ -1,12 +1,21 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { VueWrapper, shallowMount } from '@vue/test-utils'
 import CountrySearch from '@/components/CountrySearch.vue'
+import { createTestingPinia } from '@pinia/testing'
 
 describe('CountrySearch: render', () => {
   let wrapper: VueWrapper
 
   beforeEach(() => {
-    wrapper = shallowMount(CountrySearch)
+    wrapper = shallowMount(CountrySearch, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn
+          })
+        ]
+      }
+    })
   })
 
   it('renders magnify icon', () => {

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
+import { storeToRefs } from 'pinia'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
-import type { ICountrySanitize } from '@/interfaces/country'
-// Props
-const props = defineProps<{
-  parentCountries: ICountrySanitize[]
-}>()
-// Countries
-const countries = toRef(props.parentCountries)
+import { useCountryStore } from '@/stores/country'
+// Country store
+const countryStore = useCountryStore()
+// Data
+const { countries } = storeToRefs(countryStore)
 </script>
 
 <template>
@@ -79,7 +77,7 @@ const countries = toRef(props.parentCountries)
             <tbody class="bg-white">
               <tr
                 v-for="(country, countryIdx) in countries"
-                :key="country.name.common"
+                :key="country.name"
                 data-test="data-row"
                 :class="[{ 'bg-indigo-100': country.isSelected }]"
               >
@@ -113,7 +111,7 @@ const countries = toRef(props.parentCountries)
                     'whitespace-nowrap px-3 py-4 text-sm sm:table-cell'
                   ]"
                 >
-                  {{ country.name.common }}
+                  <div v-html="country.name"></div>
                 </td>
                 <td
                   data-test="data-region"
@@ -133,7 +131,7 @@ const countries = toRef(props.parentCountries)
                     'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
                   ]"
                 >
-                  {{ country.capital }}
+                  <div v-html="country.capital"></div>
                 </td>
               </tr>
             </tbody>

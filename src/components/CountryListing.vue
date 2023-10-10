@@ -9,17 +9,18 @@ import SkeletonLoader from '@/components/SkeletonLoader.vue'
 import { getAllCountries } from '@/api/countriesApi'
 import type { ICountry, ICountrySanitize } from '@/interfaces/country'
 import { filterAllowedObjectProperties } from '@/utilities/filters'
-
+// Store
+import { useCountryStore } from '@/stores/country'
+const countryStore = useCountryStore()
 // Data
 const isLoading = ref(true)
 const isError = ref(false)
-let countries = ref([] as ICountrySanitize[])
 // Fetching
 const fetchAllCountries = async () => {
   isLoading.value = true
   const { data, success } = await getAllCountries()
   if (success) {
-    countries.value = data!.map((country) => sanitizeCountry(country))
+    countryStore.setCountries(data!.map((country) => sanitizeCountry(country)))
   } else {
     isError.value = true
   }
@@ -31,6 +32,8 @@ const sanitizeCountry = (obj: ICountry): ICountrySanitize => {
   const newObj: any = filterAllowedObjectProperties(obj, allowedProperties)
   // selected checkbox
   newObj.isSelected = false
+  // name to string
+  newObj.name = obj.name.common
   // capital to string
   newObj.capital = obj.capital ? obj.capital.join(', ') : ''
 
@@ -60,7 +63,7 @@ onMounted(() => {
     <!-- Search -->
     <CountrySearch data-test="search" />
     <!-- Table -->
-    <CountryTable data-test="table" :parentCountries="countries" />
+    <CountryTable data-test="table" />
   </template>
 </template>
 
