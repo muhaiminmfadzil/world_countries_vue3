@@ -4,12 +4,18 @@ import type { ICountrySanitize } from '@/interfaces/country'
 import { stringHighlighter } from '@/utilities/filters'
 
 export const useCountryStore = defineStore('country', () => {
+  /**
+   * Country listing section
+   */
   // Country list
   const allCountries = ref([]) as Ref<ICountrySanitize[]>
   // Set countries
   const setCountries = (data: ICountrySanitize[]) => {
     allCountries.value = data
   }
+  /**
+   * Country filtering section
+   */
   // Search countries
   const searchText = ref('')
   // Get filtered countries
@@ -38,6 +44,9 @@ export const useCountryStore = defineStore('country', () => {
         })
     )
   })
+  /**
+   * Country selection section
+   */
   // Selected countries key
   const SELECTED_COUNTRIES_KEY = 'selected_countries'
   // Filter selected countries and return by ids
