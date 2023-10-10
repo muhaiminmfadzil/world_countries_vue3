@@ -61,6 +61,15 @@ export const useCountryStore = defineStore('country', () => {
       allCountries.value.splice(index, 1, selectedCountry)
     }
   }
+  // Select or delect all
+  const setSelectAllCountries = (selected: boolean) => {
+    allCountries.value = allCountries.value.map((country) => {
+      return {
+        ...country,
+        isSelected: selected
+      }
+    })
+  }
 
   return {
     allCountries,
@@ -69,6 +78,7 @@ export const useCountryStore = defineStore('country', () => {
     searchText,
     getLocalSelectedCountries,
     setSelectedCountry,
-    filterSelectedCountries
+    filterSelectedCountries,
+    setSelectAllCountries
   }
 })

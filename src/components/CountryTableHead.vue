@@ -2,10 +2,22 @@
 import { storeToRefs } from 'pinia'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { useCountryStore } from '@/stores/country'
+import { computed } from 'vue'
 // Country store
 const countryStore = useCountryStore()
 // Data
-const { filterSelectedCountries } = storeToRefs(countryStore)
+const { filterSelectedCountries, allCountries } = storeToRefs(countryStore)
+const isIndeterminate = computed(() => {
+  return (
+    filterSelectedCountries.value.length > 0 &&
+    filterSelectedCountries.value.length < allCountries.value.length
+  )
+})
+const handleCheckItems = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const setChecked = target.checked
+  countryStore.setSelectAllCountries(setChecked)
+}
 </script>
 
 <template>
@@ -20,6 +32,9 @@ const { filterSelectedCountries } = storeToRefs(countryStore)
         <input
           type="checkbox"
           class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
+          :checked="isIndeterminate || filterSelectedCountries.length === allCountries.length"
+          :indeterminate="isIndeterminate"
+          @change="handleCheckItems"
         />
       </th>
       <th
