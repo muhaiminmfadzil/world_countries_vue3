@@ -26,6 +26,8 @@ export const filterAllowedObjectProperties = (
  * @returns
  */
 export const stringHighlighter = (word: string, query: string) => {
+  if (query.length === 0) return word
+
   const check = new RegExp(query, 'ig')
   return word.toString().replace(check, function (matchedText) {
     return '<span class="highlight">' + matchedText + '</span>'

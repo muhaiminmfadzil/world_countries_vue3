@@ -50,10 +50,14 @@ describe('Country Store', () => {
       }
     ]
     countryStore.setCountries(testData)
-    // Display all data
-    expect(countryStore.countries.length).toBe(4)
     // Filter by text
     const testSearch = [
+      {
+        text: '',
+        totalFound: 4,
+        foundCountryName: ['Malaysia', 'Indonesia', 'Singapore', 'One Piece ku'],
+        foundCapitalName: ['Kuala Lumpur', 'Jakarta', 'Singapore', 'Ruftel, Wano, Alabasta']
+      },
       {
         text: 'sia',
         totalFound: 2,
