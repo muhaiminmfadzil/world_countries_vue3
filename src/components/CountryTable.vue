@@ -21,7 +21,7 @@ const countries = toRef(props.parentCountries)
               <tr>
                 <th
                   data-test="head-checkbox"
-                  class="relative w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
+                  class="sticky top-0 z-10 w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
                 >
                   <input
                     type="checkbox"

@@ -43,9 +43,11 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- Loading state -->
   <template v-if="isLoading">
     <SkeletonLoader />
   </template>
+  <!-- Error state -->
   <template v-else-if="isError">
     <div class="flex flex-col gap-1 items-center justify-center h-[65dvh] text-red-400 text-sm">
       <ExclamationCircleIcon class="w-8 h-8" />
@@ -53,6 +55,7 @@ onMounted(() => {
       <div>Please try again</div>
     </div>
   </template>
+  <!-- Data listing -->
   <template v-else>
     <!-- Search -->
     <CountrySearch data-test="search" />
