@@ -1,7 +1,7 @@
 import { computed, ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { ICountrySanitize } from '../interfaces/country'
-import { stringHighlighter } from '../utilities/filters'
+import type { ICountrySanitize } from '@/interfaces/country'
+import { stringHighlighter } from '@/utilities/filters'
 
 export const useCountryStore = defineStore('country', () => {
   // Country list
