@@ -2,10 +2,16 @@
 import { storeToRefs } from 'pinia'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { useCountryStore } from '@/stores/country'
+import type { ICountrySanitize } from '@/interfaces/country'
 // Country store
 const countryStore = useCountryStore()
 // Data
 const { countries } = storeToRefs(countryStore)
+// Selection
+const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
+  const selection = { ...selectedCountry, isSelected: !selectedCountry.isSelected }
+  countryStore.setSelectedCountry(selection)
+}
 </script>
 
 <template>
@@ -92,6 +98,7 @@ const { countries } = storeToRefs(countryStore)
                     type="checkbox"
                     class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
                     v-model="country.isSelected"
+                    @click="handleSelectedCountry(country)"
                   />
                 </td>
                 <td

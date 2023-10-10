@@ -11,7 +11,9 @@ import type { ICountry, ICountrySanitize } from '@/interfaces/country'
 import { filterAllowedObjectProperties } from '@/utilities/filters'
 // Store
 import { useCountryStore } from '@/stores/country'
+import { storeToRefs } from 'pinia'
 const countryStore = useCountryStore()
+const { getLocalSelectedCountries } = storeToRefs(countryStore)
 // Data
 const isLoading = ref(true)
 const isError = ref(false)
@@ -30,10 +32,12 @@ const fetchAllCountries = async () => {
 const sanitizeCountry = (obj: ICountry): ICountrySanitize => {
   const allowedProperties = ['flag', 'name', 'region', 'capital']
   const newObj: any = filterAllowedObjectProperties(obj, allowedProperties)
-  // selected checkbox
-  newObj.isSelected = false
   // name to string
   newObj.name = obj.name.common
+  // id
+  newObj.id = newObj.name.replace(' ', '_').toUpperCase()
+  // selected checkbox
+  newObj.isSelected = getLocalSelectedCountries.value.includes(newObj.id)
   // capital to string
   newObj.capital = obj.capital ? obj.capital.join(', ') : ''
 

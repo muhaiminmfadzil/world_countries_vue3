@@ -1,4 +1,5 @@
 export interface ICountrySanitize {
+  id: string
   isSelected: boolean
   flag: string
   name: string
