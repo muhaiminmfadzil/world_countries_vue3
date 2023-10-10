@@ -40,7 +40,7 @@ describe('CountryTable: render', () => {
     expect(tableData.length).toBe(0)
     // Setup data
     const countryStore = useCountryStore()
-    const dummayData = [
+    const testData = [
       {
         isSelected: false,
         name: 'Malaysia',
@@ -63,7 +63,7 @@ describe('CountryTable: render', () => {
         region: ERegion.Asia
       }
     ]
-    countryStore.setCountries(dummayData)
+    countryStore.setCountries(testData)
     // Rerender
     await wrapper.vm.$nextTick
     // Check data
@@ -76,17 +76,17 @@ describe('CountryTable: render', () => {
     expect(tableData[0].find('[data-test="data-region"]').exists()).toBe(true)
     expect(tableData[0].find('[data-test="data-capital"]').exists()).toBe(true)
     // Each items should display correct data
-    expect(tableData[0].get('[data-test="data-flag"]').text()).toBe(dummayData[0].flag)
-    expect(tableData[0].get('[data-test="data-name"]').text()).toBe(dummayData[0].name)
-    expect(tableData[0].get('[data-test="data-region"]').text()).toBe(dummayData[0].region)
-    expect(tableData[0].get('[data-test="data-capital"]').text()).toBe(dummayData[0].capital)
-    expect(tableData[1].get('[data-test="data-flag"]').text()).toBe(dummayData[1].flag)
-    expect(tableData[1].get('[data-test="data-name"]').text()).toBe(dummayData[1].name)
-    expect(tableData[1].get('[data-test="data-region"]').text()).toBe(dummayData[1].region)
-    expect(tableData[1].get('[data-test="data-capital"]').text()).toBe(dummayData[1].capital)
-    expect(tableData[2].get('[data-test="data-flag"]').text()).toBe(dummayData[2].flag)
-    expect(tableData[2].get('[data-test="data-name"]').text()).toBe(dummayData[2].name)
-    expect(tableData[2].get('[data-test="data-region"]').text()).toBe(dummayData[2].region)
-    expect(tableData[2].get('[data-test="data-capital"]').text()).toBe(dummayData[2].capital)
+    expect(tableData[0].get('[data-test="data-flag"]').text()).toBe(testData[0].flag)
+    expect(tableData[0].get('[data-test="data-name"]').text()).toBe(testData[0].name)
+    expect(tableData[0].get('[data-test="data-region"]').text()).toBe(testData[0].region)
+    expect(tableData[0].get('[data-test="data-capital"]').text()).toBe(testData[0].capital)
+    expect(tableData[1].get('[data-test="data-flag"]').text()).toBe(testData[1].flag)
+    expect(tableData[1].get('[data-test="data-name"]').text()).toBe(testData[1].name)
+    expect(tableData[1].get('[data-test="data-region"]').text()).toBe(testData[1].region)
+    expect(tableData[1].get('[data-test="data-capital"]').text()).toBe(testData[1].capital)
+    expect(tableData[2].get('[data-test="data-flag"]').text()).toBe(testData[2].flag)
+    expect(tableData[2].get('[data-test="data-name"]').text()).toBe(testData[2].name)
+    expect(tableData[2].get('[data-test="data-region"]').text()).toBe(testData[2].region)
+    expect(tableData[2].get('[data-test="data-capital"]').text()).toBe(testData[2].capital)
   })
 })
