@@ -9,17 +9,18 @@ import SkeletonLoader from '@/components/SkeletonLoader.vue'
 import { getAllCountries } from '@/api/countriesApi'
 import type { ICountry, ICountrySanitize } from '@/interfaces/country'
 import { filterAllowedObjectProperties } from '@/utilities/filters'
-
+// Store
+import { useCountryStore } from '@/stores/country'
+const countryStore = useCountryStore()
 // Data
 const isLoading = ref(true)
 const isError = ref(false)
-let countries = ref([] as ICountrySanitize[])
 // Fetching
 const fetchAllCountries = async () => {
   isLoading.value = true
   const { data, success } = await getAllCountries()
   if (success) {
-    countries.value = data!.map((country) => sanitizeCountry(country))
+    countryStore.setCountries(data!.map((country) => sanitizeCountry(country)))
   } else {
     isError.value = true
   }
@@ -60,7 +61,7 @@ onMounted(() => {
     <!-- Search -->
     <CountrySearch data-test="search" />
     <!-- Table -->
-    <CountryTable data-test="table" :parentCountries="countries" />
+    <CountryTable data-test="table" />
   </template>
 </template>
 

@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
+import { storeToRefs } from 'pinia'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
-import type { ICountrySanitize } from '@/interfaces/country'
-// Props
-const props = defineProps<{
-  parentCountries: ICountrySanitize[]
-}>()
-// Countries
-const countries = toRef(props.parentCountries)
+
+// Country store
+import { useCountryStore } from '@/stores/country'
+const countryStore = useCountryStore()
+// Data
+const { countries } = storeToRefs(countryStore)
 </script>
 
 <template>
