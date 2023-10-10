@@ -80,9 +80,11 @@ const countries = toRef(props.parentCountries)
               <tr
                 v-for="(country, countryIdx) in countries"
                 :key="country.name.common"
+                data-test="data-row"
                 :class="[{ 'bg-indigo-100': country.isSelected }]"
               >
                 <td
+                  data-test="data-checkbox"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
                     'relative w-12 px-7'
@@ -95,6 +97,7 @@ const countries = toRef(props.parentCountries)
                   />
                 </td>
                 <td
+                  data-test="data-flag"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
                     'whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell'
@@ -103,6 +106,7 @@ const countries = toRef(props.parentCountries)
                   {{ country.flag }}
                 </td>
                 <td
+                  data-test="data-name"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
                     country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
@@ -112,6 +116,7 @@ const countries = toRef(props.parentCountries)
                   {{ country.name.common }}
                 </td>
                 <td
+                  data-test="data-region"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
                     country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',
@@ -121,6 +126,7 @@ const countries = toRef(props.parentCountries)
                   {{ country.region }}
                 </td>
                 <td
+                  data-test="data-capital"
                   :class="[
                     countryIdx !== countries.length - 1 ? 'border-b border-gray-200' : '',
                     country.isSelected ? 'text-indigo-500 font-medium' : 'text-gray-500',

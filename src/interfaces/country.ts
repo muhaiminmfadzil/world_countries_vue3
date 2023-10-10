@@ -289,7 +289,7 @@ interface IPostalCode {
   regex?: string
 }
 
-enum ERegion {
+export enum ERegion {
   Africa = 'Africa',
   Americas = 'Americas',
   Antarctic = 'Antarctic',
