@@ -16,7 +16,7 @@ export const useCountryStore = defineStore('country', () => {
   /**
    * Country filtering section
    */
-  // Search countries
+  // Search text
   const searchText = ref('')
   // Get filtered countries
   const filteredCountries = computed(() => {
