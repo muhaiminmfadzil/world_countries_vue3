@@ -10,7 +10,7 @@ const { filterSelectedCountries } = storeToRefs(countryStore)
 const toMillionsString = (value: number) => {
   return value + 'M'
 }
-
+// Options
 const chartOptions = computed(() => {
   return {
     dataLabels: {
@@ -49,7 +49,7 @@ const chartOptions = computed(() => {
     }
   }
 })
-
+// Data series
 const dataSeries = computed(() => {
   return [
     {
