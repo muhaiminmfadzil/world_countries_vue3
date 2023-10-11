@@ -5,11 +5,15 @@ import { computed } from 'vue'
 // Store
 const countryStore = useCountryStore()
 const { filterSelectedCountries } = storeToRefs(countryStore)
-
+// Total no of country limit for graph visualization
+const limit = 20
 // Number to millions formatter
 const toMillionsString = (value: number) => {
   return value + 'M'
 }
+const isOverLimit = computed(() => {
+  return filterSelectedCountries.value.length > limit
+})
 // Options
 const chartOptions = computed(() => {
   return {
@@ -23,7 +27,9 @@ const chartOptions = computed(() => {
       type: 'bar'
     },
     xaxis: {
-      categories: filterSelectedCountries.value.map((country) => country.name),
+      categories: isOverLimit.value
+        ? []
+        : filterSelectedCountries.value.map((country) => country.name),
       labels: {
         show: true
       },
@@ -54,9 +60,9 @@ const dataSeries = computed(() => {
   return [
     {
       name: 'Populations',
-      data: filterSelectedCountries.value.map((country) =>
-        (country.population / 1000000).toFixed(2)
-      )
+      data: isOverLimit.value
+        ? []
+        : filterSelectedCountries.value.map((country) => (country.population / 1000000).toFixed(2))
     }
   ]
 })
@@ -67,12 +73,13 @@ const height = computed(() => {
 </script>
 
 <template>
-  <apexchart
-    class="sticky h-screen ml-8 top-2"
-    :options="chartOptions"
-    :series="dataSeries"
-    :height="height"
-  ></apexchart>
+  <div class="sticky h-screen ml-8 top-5">
+    <div class="text-sm text-center">Select up to 20 country</div>
+    <div v-if="isOverLimit" class="text-xs text-center text-red-600">
+      Selection is over the given limit
+    </div>
+    <apexchart :options="chartOptions" :series="dataSeries" :height="height"></apexchart>
+  </div>
 </template>
 
 <style scoped></style>
