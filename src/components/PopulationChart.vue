@@ -23,13 +23,23 @@ const chartOptions = computed(() => {
     },
     xaxis: {
       categories: filterSelectedCountries.value.map((country) => country.name),
+      range: 1000000,
       labels: {
         show: true,
-        style: {
-          fontSize: '11px',
-          fontWeight: 500
-        },
+        formatter: function (val: number) {
+          return val + 'M'
+        }
+      },
+      title: {
+        text: 'Populations (in millions)'
+      }
+    },
+    yaxis: {
+      labels: {
         rotate: -45
+      },
+      title: {
+        text: 'Country'
       }
     },
     plotOptions: {
@@ -45,9 +55,8 @@ const dataSeries = computed(() => {
   return [
     {
       name: 'Populations',
-      data: filterSelectedCountries.value.map(
-        (country) => country.population
-        // Intl.NumberFormat('en').format(country.population)
+      data: filterSelectedCountries.value.map((country) =>
+        (country.population / 1000000).toFixed(2)
       )
     }
   ]
