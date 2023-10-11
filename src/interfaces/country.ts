@@ -9,6 +9,7 @@ export interface ICountrySanitize {
   capital?: string
   computedCapital?: string
   region: ERegion
+  population: number
 }
 
 export interface ICountry {

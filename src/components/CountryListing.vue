@@ -30,7 +30,7 @@ const fetchAllCountries = async () => {
 }
 // Sanitizing data
 const sanitizeCountry = (obj: ICountry): ICountrySanitize => {
-  const allowedProperties = ['flag', 'name', 'region', 'capital']
+  const allowedProperties = ['flag', 'name', 'region', 'capital', 'population']
   const newObj: any = filterAllowedObjectProperties(obj, allowedProperties)
   // name to string
   newObj.name = obj.name.common
@@ -54,25 +54,27 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- Loading state -->
-  <template v-if="isLoading">
-    <SkeletonLoader />
-  </template>
-  <!-- Error state -->
-  <template v-else-if="isError">
-    <div class="flex flex-col gap-1 items-center justify-center h-[65dvh] text-red-400 text-sm">
-      <ExclamationCircleIcon class="w-8 h-8" />
-      <div>Oppss.. An error occured</div>
-      <div>Please try again</div>
-    </div>
-  </template>
-  <!-- Data listing -->
-  <template v-else>
-    <!-- Search -->
-    <CountrySearch data-test="search" />
-    <!-- Table -->
-    <CountryTable data-test="table" />
-  </template>
+  <div>
+    <!-- Loading state -->
+    <template v-if="isLoading">
+      <SkeletonLoader />
+    </template>
+    <!-- Error state -->
+    <template v-else-if="isError">
+      <div class="flex flex-col gap-1 items-center justify-center h-[65dvh] text-red-400 text-sm">
+        <ExclamationCircleIcon class="w-8 h-8" />
+        <div>Oppss.. An error occured</div>
+        <div>Please try again</div>
+      </div>
+    </template>
+    <!-- Data listing -->
+    <template v-else>
+      <!-- Search -->
+      <CountrySearch data-test="search" />
+      <!-- Table -->
+      <CountryTable data-test="table" />
+    </template>
+  </div>
 </template>
 
 <style scoped></style>
