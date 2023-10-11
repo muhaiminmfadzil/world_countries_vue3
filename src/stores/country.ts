@@ -2,6 +2,7 @@ import { computed, watch, ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { ICountrySanitize } from '@/interfaces/country'
 import { stringHighlighter } from '@/utilities/filters'
+import { ESort, ESortId } from '@/enums/sort'
 
 export const useCountryStore = defineStore('country', () => {
   /**
@@ -20,25 +21,25 @@ export const useCountryStore = defineStore('country', () => {
   const searchText = ref('')
   // Sorting
   const sorting = ref({
-    item: null as string | null,
-    sort: null as string | null
+    id: null as ESortId | null,
+    sort: null as ESort | null
   })
   // Toggle sort
   const toggleSort = () => {
-    if (sorting.value.sort === null) return (sorting.value.sort = 'ASC')
-    if (sorting.value.sort === 'ASC') return (sorting.value.sort = 'DESC')
-    if (sorting.value.sort === 'DESC') {
+    if (sorting.value.sort === null) return (sorting.value.sort = ESort.ASC)
+    if (sorting.value.sort === ESort.ASC) return (sorting.value.sort = ESort.DESC)
+    if (sorting.value.sort === ESort.DESC) {
       sorting.value.sort = null
-      sorting.value.item = null
+      sorting.value.id = null
     }
   }
   // Set sorting option
-  const setSorting = (item: string) => {
-    // Reset sorting if select new item
-    if (sorting.value.item !== item) {
+  const setSorting = (id: ESortId) => {
+    // Reset sorting if select new id
+    if (sorting.value.id !== id) {
       sorting.value.sort = null
     }
-    sorting.value.item = item
+    sorting.value.id = id
     toggleSort()
   }
   // Get filtered countries
@@ -65,11 +66,11 @@ export const useCountryStore = defineStore('country', () => {
         return result
       })
     // Sorting
-    if (sorting.value.item && sorting.value.sort) {
+    if (sorting.value.id && sorting.value.sort) {
       result.sort((prev, next) => {
-        const prevCountry = prev[sorting.value.item as keyof ICountrySanitize] as string
-        const nextCountry = next[sorting.value.item as keyof ICountrySanitize] as string
-        return sorting.value.sort === 'ASC'
+        const prevCountry = prev[sorting.value.id as keyof ICountrySanitize] as string
+        const nextCountry = next[sorting.value.id as keyof ICountrySanitize] as string
+        return sorting.value.sort === ESort.ASC
           ? prevCountry.localeCompare(nextCountry)
           : nextCountry.localeCompare(prevCountry)
       })

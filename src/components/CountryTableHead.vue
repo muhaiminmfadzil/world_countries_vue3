@@ -4,6 +4,7 @@ import { computed } from 'vue'
 
 import SortingHead from '@/components/SortingHead.vue'
 import { useCountryStore } from '@/stores/country'
+import { ESortId } from '@/enums/sort'
 
 // Country store
 const countryStore = useCountryStore()
@@ -53,21 +54,21 @@ const handleCheckItems = (event: Event) => {
         data-test="head-name"
         class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
       >
-        <SortingHead name="Name" id="name" />
+        <SortingHead name="Name" :id="ESortId.NAME" />
       </th>
       <!-- Region -->
       <th
         data-test="head-region"
         class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
       >
-        <SortingHead name="Region" id="region" />
+        <SortingHead name="Region" :id="ESortId.REGION" />
       </th>
       <!-- Capital -->
       <th
         data-test="head-capital"
         class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
       >
-        <SortingHead name="Capital" id="capital" />
+        <SortingHead name="Capital" :id="ESortId.CAPITAL" />
       </th>
     </tr>
   </thead>

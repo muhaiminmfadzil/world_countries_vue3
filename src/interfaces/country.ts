@@ -1,3 +1,5 @@
+import { ERegion, EStartOfWeek, EStatus } from '@/enums/country'
+
 export interface ICountrySanitize {
   id: string
   isSelected: boolean
@@ -290,24 +292,4 @@ interface ITranslation {
 interface IPostalCode {
   format: string
   regex?: string
-}
-
-export enum ERegion {
-  Africa = 'Africa',
-  Americas = 'Americas',
-  Antarctic = 'Antarctic',
-  Asia = 'Asia',
-  Europe = 'Europe',
-  Oceania = 'Oceania'
-}
-
-enum EStartOfWeek {
-  Monday = 'monday',
-  Saturday = 'saturday',
-  Sunday = 'sunday'
-}
-
-enum EStatus {
-  OfficiallyAssigned = 'officially-assigned',
-  UserAssigned = 'user-assigned'
 }

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/20/solid'
-
+import { ESort, ESortId } from '@/enums/sort'
 // Props
 defineProps<{
-  id: string
+  id: ESortId
   name: string
 }>()
 // Store
@@ -12,8 +12,8 @@ import { storeToRefs } from 'pinia'
 const countryStore = useCountryStore()
 const { sorting } = storeToRefs(countryStore)
 // Is selected
-const isSelected = (item: string) => {
-  return sorting.value.item === item
+const isSelected = (id: ESortId) => {
+  return sorting.value.id === id
 }
 </script>
 
@@ -23,12 +23,12 @@ const isSelected = (item: string) => {
     <div>{{ name }}</div>
     <!-- Sorting icons -->
     <template v-if="isSelected(id)">
-      <template v-if="sorting.sort === 'ASC'">
+      <template v-if="sorting.sort === ESort.ASC">
         <span class="flex-none ml-2 text-gray-900 bg-gray-100 rounded group-hover:bg-gray-200">
           <ChevronDownIcon class="w-5 h-5" aria-hidden="true" />
         </span>
       </template>
-      <template v-if="sorting.sort === 'DESC'">
+      <template v-if="sorting.sort === ESort.DESC">
         <span class="flex-none ml-2 text-gray-900 bg-gray-100 rounded group-hover:bg-gray-200">
           <ChevronUpIcon class="w-5 h-5" aria-hidden="true" />
         </span>
