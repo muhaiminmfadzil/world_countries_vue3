@@ -12,7 +12,8 @@ describe('Country Store', () => {
   it('should initialized all items correctly', () => {
     const countryStore = useCountryStore()
 
-    expect(countryStore.countries.length).toBe(0)
+    expect(countryStore.allCountries.length).toBe(0)
+    expect(countryStore.filteredCountries.length).toBe(0)
     expect(countryStore.searchText.length).toBe(0)
   })
 
@@ -21,6 +22,7 @@ describe('Country Store', () => {
     // Setup data
     const testData = [
       {
+        id: 'MALAYSIA',
         isSelected: false,
         name: 'Malaysia',
         flag: '🇲🇾',
@@ -28,6 +30,7 @@ describe('Country Store', () => {
         region: ERegion.Asia
       },
       {
+        id: 'INDONESIA',
         isSelected: false,
         name: 'Indonesia',
         flag: '🇮🇩',
@@ -35,6 +38,7 @@ describe('Country Store', () => {
         region: ERegion.Asia
       },
       {
+        id: 'SINGAPORE',
         isSelected: false,
         name: 'Singapore',
         flag: '🇸🇬',
@@ -42,6 +46,7 @@ describe('Country Store', () => {
         region: ERegion.Asia
       },
       {
+        id: 'ONE_PIECE_KU',
         isSelected: false,
         name: 'One Piece ku',
         flag: '🇸🇬',
@@ -93,11 +98,11 @@ describe('Country Store', () => {
 
     testSearch.forEach((test) => {
       countryStore.searchText = test.text
-      expect(countryStore.countries.length).toBe(test.totalFound)
-      expect(countryStore.countries.map((country) => country.name)).toStrictEqual(
+      expect(countryStore.filteredCountries.length).toBe(test.totalFound)
+      expect(countryStore.filteredCountries.map((country) => country.name)).toStrictEqual(
         test.foundCountryName
       )
-      expect(countryStore.countries.map((country) => country.capital)).toStrictEqual(
+      expect(countryStore.filteredCountries.map((country) => country.capital)).toStrictEqual(
         test.foundCapitalName
       )
     })

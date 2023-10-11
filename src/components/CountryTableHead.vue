@@ -21,7 +21,6 @@ const handleCheckItems = (event: Event) => {
 </script>
 
 <template>
-  <!-- <div>{{ filterSelectedCountries }}</div> -->
   <!-- Table Head -->
   <thead data-test="table-head">
     <tr>

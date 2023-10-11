@@ -10,9 +10,9 @@ import CountryTableBody from '@/components/CountryTableBody.vue'
         <div class="inline-block min-w-full py-2 align-middle">
           <table class="min-w-full border-separate border-spacing-0">
             <!-- Table Head -->
-            <CountryTableHead />
+            <CountryTableHead data-test="table-head" />
             <!-- Table Body -->
-            <CountryTableBody />
+            <CountryTableBody data-test="table-body" />
           </table>
         </div>
       </div>
