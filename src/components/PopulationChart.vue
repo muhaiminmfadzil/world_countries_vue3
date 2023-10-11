@@ -6,24 +6,24 @@ import { computed } from 'vue'
 const countryStore = useCountryStore()
 const { filterSelectedCountries } = storeToRefs(countryStore)
 
+// Number to millions formatter
+const toMillionsString = (value: number) => {
+  return value + 'M'
+}
+
 const chartOptions = computed(() => {
   return {
     dataLabels: {
-      background: {
-        enabled: true,
-        foreColor: '#000',
-        borderColor: null,
-        borderRadius: 2,
-        padding: 5,
-        opacity: 0.5
-      }
+      style: {
+        colors: ['#333']
+      },
+      formatter: (value: number) => toMillionsString(value)
     },
     chart: {
       type: 'bar'
     },
     xaxis: {
       categories: filterSelectedCountries.value.map((country) => country.name),
-      range: 1000000,
       labels: {
         show: true
       },
@@ -34,9 +34,6 @@ const chartOptions = computed(() => {
     yaxis: {
       labels: {
         rotate: -45
-      },
-      title: {
-        text: 'Country'
       }
     },
     plotOptions: {
@@ -47,9 +44,7 @@ const chartOptions = computed(() => {
     },
     tooltip: {
       y: {
-        formatter: function (value: number) {
-          return value + 'M'
-        }
+        formatter: (value: number) => toMillionsString(value)
       }
     }
   }
