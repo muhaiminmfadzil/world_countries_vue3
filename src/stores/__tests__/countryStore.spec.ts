@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { useCountryStore } from '@/stores/country'
 import { ERegion } from '@/enums/country'
 import { ESort, ESortId } from '@/enums/sort'
+import type { ICountrySanitize } from '@/interfaces/country'
 
 describe('Country Store: initialized', () => {
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe('Country Store: initialized', () => {
 })
 
 describe('Country Store: search, filter & set selected, sort by column', () => {
-  const testData = [
+  const testData: ICountrySanitize[] = [
     {
       id: 'MALAYSIA',
       isSelected: false,
@@ -29,7 +30,8 @@ describe('Country Store: search, filter & set selected, sort by column', () => {
       flag: '🇲🇾',
       capital: 'Kuala Lumpur',
       computedCapital: 'Kuala Lumpur',
-      region: ERegion.Asia
+      region: ERegion.Asia,
+      population: 100
     },
     {
       id: 'INDONESIA',
@@ -39,7 +41,8 @@ describe('Country Store: search, filter & set selected, sort by column', () => {
       flag: '🇮🇩',
       capital: 'Jakarta',
       computedCapital: 'Jakarta',
-      region: ERegion.Africa
+      region: ERegion.Africa,
+      population: 1000
     },
     {
       id: 'SINGAPORE',
@@ -49,7 +52,8 @@ describe('Country Store: search, filter & set selected, sort by column', () => {
       flag: '🇸🇬',
       capital: 'Singapore',
       computedCapital: 'Singapore',
-      region: ERegion.Oceania
+      region: ERegion.Oceania,
+      population: 10
     },
     {
       id: 'ONE_PIECE_KU',
@@ -59,7 +63,8 @@ describe('Country Store: search, filter & set selected, sort by column', () => {
       flag: '🇸🇬',
       capital: 'Ruftel, Wano, Alabasta',
       computedCapital: 'Ruftel, Wano, Alabasta',
-      region: ERegion.Europe
+      region: ERegion.Europe,
+      population: 200
     }
   ]
 
