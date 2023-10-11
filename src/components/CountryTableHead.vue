@@ -44,7 +44,7 @@ const isSearchMode = computed(() => {
       <!-- Checkbox -->
       <th
         data-test="head-checkbox"
-        class="sticky top-0 z-10 w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
+        class="sticky top-0 z-10 px-6 bg-white bg-opacity-75 border-b border-gray-300"
       >
         <input
           v-if="!isSearchMode"
