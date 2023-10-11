@@ -30,7 +30,7 @@ const fetchAllCountries = async () => {
 }
 // Sanitizing data
 const sanitizeCountry = (obj: ICountry): ICountrySanitize => {
-  const allowedProperties = ['flag', 'name', 'region', 'capital']
+  const allowedProperties = ['flag', 'name', 'region', 'capital', 'population']
   const newObj: any = filterAllowedObjectProperties(obj, allowedProperties)
   // name to string
   newObj.name = obj.name.common
@@ -54,7 +54,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="">
+  <div>
     <!-- Loading state -->
     <template v-if="isLoading">
       <SkeletonLoader />
