@@ -2,7 +2,7 @@ import { setActivePinia, createPinia } from 'pinia'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { useCountryStore } from '@/stores/country'
-import { ERegion } from '@/interfaces/country'
+import { ERegion } from '@/enums/country'
 
 describe('Country Store: initialized', () => {
   beforeEach(() => {
@@ -24,32 +24,40 @@ describe('Country Store: search, filter and set selected', () => {
       id: 'MALAYSIA',
       isSelected: false,
       name: 'Malaysia',
+      computedName: 'Malaysia',
       flag: '🇲🇾',
       capital: 'Kuala Lumpur',
+      computedCapital: 'Kuala Lumpur',
       region: ERegion.Asia
     },
     {
       id: 'INDONESIA',
       isSelected: true,
       name: 'Indonesia',
+      computedName: 'Indonesia',
       flag: '🇮🇩',
       capital: 'Jakarta',
+      computedCapital: 'Jakarta',
       region: ERegion.Asia
     },
     {
       id: 'SINGAPORE',
       isSelected: true,
       name: 'Singapore',
+      computedName: 'Singapore',
       flag: '🇸🇬',
       capital: 'Singapore',
+      computedCapital: 'Singapore',
       region: ERegion.Asia
     },
     {
       id: 'ONE_PIECE_KU',
       isSelected: false,
       name: 'One Piece ku',
+      computedName: 'One Piece ku',
       flag: '🇸🇬',
       capital: 'Ruftel, Wano, Alabasta',
+      computedCapital: 'Ruftel, Wano, Alabasta',
       region: ERegion.Asia
     }
   ]
@@ -107,19 +115,22 @@ describe('Country Store: search, filter and set selected', () => {
     testSearch.forEach((test) => {
       countryStore.searchText = test.text
       expect(countryStore.filteredCountries.length).toBe(test.totalFound)
-      expect(countryStore.filteredCountries.map((country) => country.name)).toStrictEqual(
+      expect(countryStore.filteredCountries.map((country) => country.computedName)).toStrictEqual(
         test.foundCountryName
       )
-      expect(countryStore.filteredCountries.map((country) => country.capital)).toStrictEqual(
-        test.foundCapitalName
-      )
+      expect(
+        countryStore.filteredCountries.map((country) => country.computedCapital)
+      ).toStrictEqual(test.foundCapitalName)
     })
   })
 
   it('should filter selected item correctly', () => {
     const countryStore = useCountryStore()
     // Filter by selected
-    expect(countryStore.filterSelectedCountries).toStrictEqual(['INDONESIA', 'SINGAPORE'])
+    expect(countryStore.filterSelectedCountries.map((country) => country.id)).toStrictEqual([
+      'INDONESIA',
+      'SINGAPORE'
+    ])
   })
 
   it('should set all selected item correctly', () => {

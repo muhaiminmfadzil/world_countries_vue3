@@ -4,7 +4,7 @@ import { createTestingPinia } from '@pinia/testing'
 
 import CountryTableBody from '@/components/CountryTableBody.vue'
 import { useCountryStore } from '@/stores/country'
-import { ERegion } from '@/interfaces/country'
+import { ERegion } from '@/enums/country'
 
 describe('CountryTableBody: render', () => {
   let wrapper: VueWrapper
@@ -33,24 +33,30 @@ describe('CountryTableBody: render', () => {
         id: 'MALAYSIA',
         isSelected: false,
         name: 'Malaysia',
+        computedName: 'Malaysia',
         flag: '🇲🇾',
         capital: 'Kuala Lumpur',
+        computedCapital: 'Kuala Lumpur',
         region: ERegion.Asia
       },
       {
         id: 'INDONESIA',
         isSelected: false,
         name: 'Indonesia',
+        computedName: 'Indonesia',
         flag: '🇮🇩',
         capital: 'Jakarta',
+        computedCapital: 'Jakarta',
         region: ERegion.Asia
       },
       {
         id: 'SINGAPORE',
         isSelected: false,
         name: 'Singapore',
+        computedName: 'Singapore',
         flag: '🇸🇬',
         capital: 'Singapore',
+        computedCapital: 'Singapore',
         region: ERegion.Asia
       }
     ]
@@ -68,16 +74,16 @@ describe('CountryTableBody: render', () => {
     expect(tableData[0].find('[data-test="data-capital"]').exists()).toBe(true)
     // Each items should display correct data
     expect(tableData[0].get('[data-test="data-flag"]').text()).toBe(testData[0].flag)
-    expect(tableData[0].get('[data-test="data-name"]').text()).toBe(testData[0].name)
+    expect(tableData[0].get('[data-test="data-name"]').text()).toBe(testData[0].computedName)
     expect(tableData[0].get('[data-test="data-region"]').text()).toBe(testData[0].region)
-    expect(tableData[0].get('[data-test="data-capital"]').text()).toBe(testData[0].capital)
+    expect(tableData[0].get('[data-test="data-capital"]').text()).toBe(testData[0].computedCapital)
     expect(tableData[1].get('[data-test="data-flag"]').text()).toBe(testData[1].flag)
-    expect(tableData[1].get('[data-test="data-name"]').text()).toBe(testData[1].name)
+    expect(tableData[1].get('[data-test="data-name"]').text()).toBe(testData[1].computedName)
     expect(tableData[1].get('[data-test="data-region"]').text()).toBe(testData[1].region)
-    expect(tableData[1].get('[data-test="data-capital"]').text()).toBe(testData[1].capital)
+    expect(tableData[1].get('[data-test="data-capital"]').text()).toBe(testData[1].computedCapital)
     expect(tableData[2].get('[data-test="data-flag"]').text()).toBe(testData[2].flag)
-    expect(tableData[2].get('[data-test="data-name"]').text()).toBe(testData[2].name)
+    expect(tableData[2].get('[data-test="data-name"]').text()).toBe(testData[2].computedName)
     expect(tableData[2].get('[data-test="data-region"]').text()).toBe(testData[2].region)
-    expect(tableData[2].get('[data-test="data-capital"]').text()).toBe(testData[2].capital)
+    expect(tableData[2].get('[data-test="data-capital"]').text()).toBe(testData[2].computedCapital)
   })
 })
