@@ -7,8 +7,8 @@ import CountryTableBody from '@/components/CountryTableBody.vue'
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="flow-root">
       <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
-        <div class="py-2 align-middle">
-          <table class="border-separate border-spacing-0">
+        <div class="min-w-full py-2 overflow-auto align-middle">
+          <table class="min-w-full border-separate border-spacing-0">
             <!-- Table Head -->
             <CountryTableHead data-test="table-head" />
             <!-- Table Body -->

@@ -60,6 +60,10 @@ const dataSeries = computed(() => {
     }
   ]
 })
+// 75% screen height
+const height = computed(() => {
+  return (70 / 100) * screen.height
+})
 </script>
 
 <template>
@@ -67,6 +71,7 @@ const dataSeries = computed(() => {
     class="sticky h-screen ml-8 top-2"
     :options="chartOptions"
     :series="dataSeries"
+    :height="height"
   ></apexchart>
 </template>
 
