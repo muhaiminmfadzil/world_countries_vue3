@@ -9,8 +9,7 @@ import { ESortId } from '@/enums/sort'
 // Country store
 const countryStore = useCountryStore()
 // Data
-const { filterSelectedCountries, allCountries, filteredCountries, searchText } =
-  storeToRefs(countryStore)
+const { filterSelectedCountries, allCountries, searchText } = storeToRefs(countryStore)
 // Indeterminate
 const isIndeterminate = computed(() => {
   return (
