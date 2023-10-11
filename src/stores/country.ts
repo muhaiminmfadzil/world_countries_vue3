@@ -1,19 +1,25 @@
-import { computed, ref, type Ref } from 'vue'
+import { computed, watch, ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { ICountrySanitize } from '@/interfaces/country'
 import { stringHighlighter } from '@/utilities/filters'
 
 export const useCountryStore = defineStore('country', () => {
+  /**
+   * Country listing section
+   */
   // Country list
   const allCountries = ref([]) as Ref<ICountrySanitize[]>
   // Set countries
   const setCountries = (data: ICountrySanitize[]) => {
     allCountries.value = data
   }
-  // Search countries
+  /**
+   * Country filtering section
+   */
+  // Search text
   const searchText = ref('')
   // Get filtered countries
-  const countries = computed(() => {
+  const filteredCountries = computed(() => {
     const search = searchText.value.toLowerCase()
     return (
       allCountries.value
@@ -38,6 +44,50 @@ export const useCountryStore = defineStore('country', () => {
         })
     )
   })
+  /**
+   * Country selection section
+   */
+  // Selected countries key
+  const SELECTED_COUNTRIES_KEY = 'selected_countries'
+  // Filter selected countries and return by ids
+  const filterSelectedCountries = computed(() => {
+    return allCountries.value.filter((country) => country.isSelected).map((country) => country.id)
+  })
+  // Watch filtered data and save selected country to local storage
+  watch(filterSelectedCountries, (newValue) => {
+    localStorage.setItem(SELECTED_COUNTRIES_KEY, JSON.stringify(newValue))
+  })
+  // Get local storage data
+  const getLocalSelectedCountries = computed((): String[] => {
+    return localStorage.getItem(SELECTED_COUNTRIES_KEY)
+      ? JSON.parse(localStorage.getItem(SELECTED_COUNTRIES_KEY)!)
+      : []
+  })
+  // Set selected country
+  const setSelectedCountry = (selectedCountry: ICountrySanitize) => {
+    const index = allCountries.value.findIndex((country) => country.id === selectedCountry.id)
+    if (index >= 0) {
+      allCountries.value.splice(index, 1, selectedCountry)
+    }
+  }
+  // Select or delect all
+  const setSelectAllCountries = (selected: boolean) => {
+    allCountries.value = allCountries.value.map((country) => {
+      return {
+        ...country,
+        isSelected: selected
+      }
+    })
+  }
 
-  return { countries, setCountries, searchText }
+  return {
+    allCountries,
+    filteredCountries,
+    setCountries,
+    searchText,
+    getLocalSelectedCountries,
+    setSelectedCountry,
+    filterSelectedCountries,
+    setSelectAllCountries
+  }
 })
