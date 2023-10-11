@@ -57,10 +57,12 @@ export const useCountryStore = defineStore('country', () => {
       .map((country) => {
         const result = {
           ...country,
-          computedName: stringHighlighter(country.computedName, search)
+          computedName:
+            search.length > 0 ? stringHighlighter(country.computedName, search) : country.name
         }
         if (country.capital && country.capital?.length > 0) {
-          result.computedCapital = stringHighlighter(country.capital!, search)
+          result.computedCapital =
+            search.length > 0 ? stringHighlighter(country.capital!, search) : country.capital
         }
 
         return result
@@ -83,13 +85,16 @@ export const useCountryStore = defineStore('country', () => {
    */
   // Selected countries key
   const SELECTED_COUNTRIES_KEY = 'selected_countries'
-  // Filter selected countries and return by ids
-  const filterSelectedCountries = computed(() => {
-    return allCountries.value.filter((country) => country.isSelected).map((country) => country.id)
+  // Filter selected countries
+  const filterSelectedCountries = computed((): ICountrySanitize[] => {
+    return allCountries.value.filter((country) => country.isSelected)
   })
-  // Watch filtered data and save selected country to local storage
-  watch(filterSelectedCountries, (newValue) => {
-    localStorage.setItem(SELECTED_COUNTRIES_KEY, JSON.stringify(newValue))
+  // Watch filtered data and save selected country by id to local storage
+  watch(filterSelectedCountries, (newValue: ICountrySanitize[]) => {
+    localStorage.setItem(
+      SELECTED_COUNTRIES_KEY,
+      JSON.stringify(newValue.map((country) => country.id))
+    )
   })
   // Get local storage data
   const getLocalSelectedCountries = computed((): String[] => {

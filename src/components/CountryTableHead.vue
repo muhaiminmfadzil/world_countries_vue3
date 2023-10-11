@@ -9,7 +9,8 @@ import { ESortId } from '@/enums/sort'
 // Country store
 const countryStore = useCountryStore()
 // Data
-const { filterSelectedCountries, allCountries } = storeToRefs(countryStore)
+const { filterSelectedCountries, allCountries, filteredCountries, searchText } =
+  storeToRefs(countryStore)
 // Indeterminate
 const isIndeterminate = computed(() => {
   return (
@@ -17,12 +18,24 @@ const isIndeterminate = computed(() => {
     filterSelectedCountries.value.length < allCountries.value.length
   )
 })
+// Is checked
+const isChecked = computed(() => {
+  // Default
+  if (isIndeterminate.value) return true
+
+  return filterSelectedCountries.value.length === allCountries.value.length
+})
 // Check items
 const handleCheckItems = (event: Event) => {
   const target = event.target as HTMLInputElement
   const setChecked = target.checked
+
   countryStore.setSelectAllCountries(setChecked)
 }
+// Is in search mode
+const isSearchMode = computed(() => {
+  return searchText.value.length > 0
+})
 </script>
 
 <template>
@@ -35,9 +48,10 @@ const handleCheckItems = (event: Event) => {
         class="sticky top-0 z-10 w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
       >
         <input
+          v-if="!isSearchMode"
           type="checkbox"
           class="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 top-1/2 focus:ring-indigo-600"
-          :checked="isIndeterminate || filterSelectedCountries.length === allCountries.length"
+          :checked="isChecked"
           :indeterminate="isIndeterminate"
           @change="handleCheckItems"
         />
