@@ -74,7 +74,7 @@ const height = computed(() => {
 
 <template>
   <div class="sticky h-screen ml-8 top-5">
-    <div class="mt-5 text-sm text-center">Select up to 20 country</div>
+    <div class="mt-5 text-sm text-center">Select up to 20 countries</div>
     <div v-if="isOverLimit" class="text-xs text-center text-red-600">
       Selection is over the given limit
     </div>
