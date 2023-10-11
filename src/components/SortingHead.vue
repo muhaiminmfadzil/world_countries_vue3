@@ -20,16 +20,22 @@ const isSelected = (id: ESortId) => {
 <template>
   <a href="#" class="inline-flex group" @click="countryStore.setSorting(id)">
     <!-- Name -->
-    <div>{{ name }}</div>
+    <div data-test="name">{{ name }}</div>
     <!-- Sorting icons -->
     <template v-if="isSelected(id)">
       <template v-if="sorting.sort === ESort.ASC">
-        <span class="flex-none ml-2 text-gray-900 bg-gray-100 rounded group-hover:bg-gray-200">
+        <span
+          data-test="chevron-down"
+          class="flex-none ml-2 text-gray-900 bg-gray-100 rounded group-hover:bg-gray-200"
+        >
           <ChevronDownIcon class="w-5 h-5" aria-hidden="true" />
         </span>
       </template>
       <template v-if="sorting.sort === ESort.DESC">
-        <span class="flex-none ml-2 text-gray-900 bg-gray-100 rounded group-hover:bg-gray-200">
+        <span
+          data-test="chevron-up"
+          class="flex-none ml-2 text-gray-900 bg-gray-100 rounded group-hover:bg-gray-200"
+        >
           <ChevronUpIcon class="w-5 h-5" aria-hidden="true" />
         </span>
       </template>
