@@ -24,6 +24,7 @@ const handleCheckItems = (event: Event) => {
   <!-- Table Head -->
   <thead data-test="table-head">
     <tr>
+      <!-- Checkbox -->
       <th
         data-test="head-checkbox"
         class="sticky top-0 z-10 w-12 px-6 bg-white bg-opacity-75 border-b border-gray-300"
@@ -36,12 +37,14 @@ const handleCheckItems = (event: Event) => {
           @change="handleCheckItems"
         />
       </th>
+      <!-- Flag -->
       <th
         data-test="head-flag"
         class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
       >
         Flag
       </th>
+      <!-- Name -->
       <th
         data-test="head-name"
         class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
@@ -53,6 +56,7 @@ const handleCheckItems = (event: Event) => {
           </span>
         </a>
       </th>
+      <!-- Region -->
       <th
         data-test="head-region"
         class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
@@ -66,6 +70,7 @@ const handleCheckItems = (event: Event) => {
           </span>
         </a>
       </th>
+      <!-- Capital -->
       <th
         data-test="head-capital"
         class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 px-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"

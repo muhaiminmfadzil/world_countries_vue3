@@ -29,6 +29,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
       ]"
       @click="handleSelectedCountry(country)"
     >
+      <!-- Checkbox -->
       <td
         data-test="data-checkbox"
         :class="[
@@ -42,6 +43,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
           :checked="country.isSelected"
         />
       </td>
+      <!-- Flag -->
       <td
         data-test="data-flag"
         :class="[
@@ -51,6 +53,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
       >
         {{ country.flag }}
       </td>
+      <!-- Name -->
       <td
         data-test="data-name"
         :class="[
@@ -61,6 +64,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
       >
         <div v-html="country.name"></div>
       </td>
+      <!-- Region -->
       <td
         data-test="data-region"
         :class="[
@@ -71,6 +75,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
       >
         {{ country.region }}
       </td>
+      <!-- Capital -->
       <td
         data-test="data-capital"
         :class="[
