@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { useCountryStore } from '@/stores/country'
 import { ERegion } from '@/interfaces/country'
 
-describe('Country Store', () => {
+describe('Country Store: initialized', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
@@ -16,45 +16,53 @@ describe('Country Store', () => {
     expect(countryStore.filteredCountries.length).toBe(0)
     expect(countryStore.searchText.length).toBe(0)
   })
+})
 
-  it('should filter item correctly', () => {
-    const countryStore = useCountryStore()
+describe('Country Store: search, filter and set selected', () => {
+  const testData = [
+    {
+      id: 'MALAYSIA',
+      isSelected: false,
+      name: 'Malaysia',
+      flag: '🇲🇾',
+      capital: 'Kuala Lumpur',
+      region: ERegion.Asia
+    },
+    {
+      id: 'INDONESIA',
+      isSelected: true,
+      name: 'Indonesia',
+      flag: '🇮🇩',
+      capital: 'Jakarta',
+      region: ERegion.Asia
+    },
+    {
+      id: 'SINGAPORE',
+      isSelected: true,
+      name: 'Singapore',
+      flag: '🇸🇬',
+      capital: 'Singapore',
+      region: ERegion.Asia
+    },
+    {
+      id: 'ONE_PIECE_KU',
+      isSelected: false,
+      name: 'One Piece ku',
+      flag: '🇸🇬',
+      capital: 'Ruftel, Wano, Alabasta',
+      region: ERegion.Asia
+    }
+  ]
+
+  beforeEach(() => {
+    setActivePinia(createPinia())
     // Setup data
-    const testData = [
-      {
-        id: 'MALAYSIA',
-        isSelected: false,
-        name: 'Malaysia',
-        flag: '🇲🇾',
-        capital: 'Kuala Lumpur',
-        region: ERegion.Asia
-      },
-      {
-        id: 'INDONESIA',
-        isSelected: false,
-        name: 'Indonesia',
-        flag: '🇮🇩',
-        capital: 'Jakarta',
-        region: ERegion.Asia
-      },
-      {
-        id: 'SINGAPORE',
-        isSelected: false,
-        name: 'Singapore',
-        flag: '🇸🇬',
-        capital: 'Singapore',
-        region: ERegion.Asia
-      },
-      {
-        id: 'ONE_PIECE_KU',
-        isSelected: false,
-        name: 'One Piece ku',
-        flag: '🇸🇬',
-        capital: 'Ruftel, Wano, Alabasta',
-        region: ERegion.Asia
-      }
-    ]
+    const countryStore = useCountryStore()
     countryStore.setCountries(testData)
+  })
+
+  it('should filter search item correctly', () => {
+    const countryStore = useCountryStore()
     // Filter by text
     const span = (value: string) => {
       return `<span class="highlight">${value}</span>`
@@ -106,5 +114,23 @@ describe('Country Store', () => {
         test.foundCapitalName
       )
     })
+  })
+
+  it('should filter selected item correctly', () => {
+    const countryStore = useCountryStore()
+    // Filter by selected
+    expect(countryStore.filterSelectedCountries).toStrictEqual(['INDONESIA', 'SINGAPORE'])
+  })
+
+  it('should set all selected item correctly', () => {
+    const countryStore = useCountryStore()
+    // Select all
+    countryStore.setSelectAllCountries(true)
+    expect(countryStore.allCountries.every((country) => country.isSelected === true)).toBe(true)
+    expect(countryStore.filterSelectedCountries.length).toBe(4)
+    // Deselect all
+    countryStore.setSelectAllCountries(false)
+    expect(countryStore.allCountries.every((country) => country.isSelected === false)).toBe(true)
+    expect(countryStore.filterSelectedCountries.length).toBe(0)
   })
 })
