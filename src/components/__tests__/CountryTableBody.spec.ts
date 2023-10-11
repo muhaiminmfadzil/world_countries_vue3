@@ -5,6 +5,7 @@ import { createTestingPinia } from '@pinia/testing'
 import CountryTableBody from '@/components/CountryTableBody.vue'
 import { useCountryStore } from '@/stores/country'
 import { ERegion } from '@/enums/country'
+import type { ICountrySanitize } from '@/interfaces/country'
 
 describe('CountryTableBody: render', () => {
   let wrapper: VueWrapper
@@ -28,7 +29,7 @@ describe('CountryTableBody: render', () => {
     expect(tableData.length).toBe(0)
     // Setup data
     const countryStore = useCountryStore()
-    const testData = [
+    const testData: ICountrySanitize[] = [
       {
         id: 'MALAYSIA',
         isSelected: false,
@@ -37,7 +38,8 @@ describe('CountryTableBody: render', () => {
         flag: '🇲🇾',
         capital: 'Kuala Lumpur',
         computedCapital: 'Kuala Lumpur',
-        region: ERegion.Asia
+        region: ERegion.Asia,
+        population: 100
       },
       {
         id: 'INDONESIA',
@@ -47,7 +49,8 @@ describe('CountryTableBody: render', () => {
         flag: '🇮🇩',
         capital: 'Jakarta',
         computedCapital: 'Jakarta',
-        region: ERegion.Asia
+        region: ERegion.Asia,
+        population: 1000
       },
       {
         id: 'SINGAPORE',
@@ -57,7 +60,8 @@ describe('CountryTableBody: render', () => {
         flag: '🇸🇬',
         capital: 'Singapore',
         computedCapital: 'Singapore',
-        region: ERegion.Asia
+        region: ERegion.Asia,
+        population: 10
       }
     ]
     countryStore.setCountries(testData)
