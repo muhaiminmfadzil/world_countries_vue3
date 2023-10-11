@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { useCountryStore } from '@/stores/country'
 import { ERegion } from '@/enums/country'
+import { ESort, ESortId } from '@/enums/sort'
 
 describe('Country Store: initialized', () => {
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe('Country Store: initialized', () => {
   })
 })
 
-describe('Country Store: search, filter and set selected', () => {
+describe('Country Store: search, filter & set selected, sort by column', () => {
   const testData = [
     {
       id: 'MALAYSIA',
@@ -38,7 +39,7 @@ describe('Country Store: search, filter and set selected', () => {
       flag: '🇮🇩',
       capital: 'Jakarta',
       computedCapital: 'Jakarta',
-      region: ERegion.Asia
+      region: ERegion.Africa
     },
     {
       id: 'SINGAPORE',
@@ -48,7 +49,7 @@ describe('Country Store: search, filter and set selected', () => {
       flag: '🇸🇬',
       capital: 'Singapore',
       computedCapital: 'Singapore',
-      region: ERegion.Asia
+      region: ERegion.Oceania
     },
     {
       id: 'ONE_PIECE_KU',
@@ -58,7 +59,7 @@ describe('Country Store: search, filter and set selected', () => {
       flag: '🇸🇬',
       capital: 'Ruftel, Wano, Alabasta',
       computedCapital: 'Ruftel, Wano, Alabasta',
-      region: ERegion.Asia
+      region: ERegion.Europe
     }
   ]
 
@@ -122,6 +123,9 @@ describe('Country Store: search, filter and set selected', () => {
         countryStore.filteredCountries.map((country) => country.computedCapital)
       ).toStrictEqual(test.foundCapitalName)
     })
+
+    // Reset search
+    countryStore.searchText = ''
   })
 
   it('should filter selected item correctly', () => {
@@ -143,5 +147,67 @@ describe('Country Store: search, filter and set selected', () => {
     countryStore.setSelectAllCountries(false)
     expect(countryStore.allCountries.every((country) => country.isSelected === false)).toBe(true)
     expect(countryStore.filterSelectedCountries.length).toBe(0)
+  })
+
+  it('should handle sort tonggle correctly', () => {
+    const countryStore = useCountryStore()
+    // Default
+    expect(countryStore.sorting).toStrictEqual({ id: null, sort: null })
+    // Set column toggle test data
+    const testData = [
+      {
+        id: ESortId.NAME,
+        result: { id: ESortId.NAME, sort: ESort.ASC }
+      },
+      {
+        id: ESortId.NAME,
+        result: { id: ESortId.NAME, sort: ESort.DESC }
+      },
+      {
+        id: ESortId.NAME,
+        result: { id: null, sort: null }
+      },
+      {
+        id: ESortId.CAPITAL,
+        result: { id: ESortId.CAPITAL, sort: ESort.ASC }
+      },
+      {
+        id: ESortId.CAPITAL,
+        result: { id: ESortId.CAPITAL, sort: ESort.DESC }
+      },
+      {
+        id: ESortId.REGION,
+        result: { id: ESortId.REGION, sort: ESort.ASC }
+      }
+    ]
+
+    testData.forEach((test) => {
+      countryStore.setSorting(test.id)
+      expect(countryStore.sorting).toStrictEqual(test.result)
+    })
+  })
+
+  it('should sort data correctly', () => {
+    const countryStore = useCountryStore()
+    // Set toggle test data
+    const testData = [
+      {
+        id: ESortId.NAME,
+        result: ['INDONESIA', 'MALAYSIA', 'ONE_PIECE_KU', 'SINGAPORE']
+      },
+      {
+        id: ESortId.NAME,
+        result: ['SINGAPORE', 'ONE_PIECE_KU', 'MALAYSIA', 'INDONESIA']
+      },
+      {
+        id: ESortId.REGION,
+        result: ['INDONESIA', 'MALAYSIA', 'ONE_PIECE_KU', 'SINGAPORE']
+      }
+    ]
+
+    testData.forEach((test) => {
+      countryStore.setSorting(test.id)
+      expect(countryStore.filteredCountries.map((country) => country.id)).toStrictEqual(test.result)
+    })
   })
 })
