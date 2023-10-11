@@ -25,10 +25,7 @@ const chartOptions = computed(() => {
       categories: filterSelectedCountries.value.map((country) => country.name),
       range: 1000000,
       labels: {
-        show: true,
-        formatter: function (val: number) {
-          return val + 'M'
-        }
+        show: true
       },
       title: {
         text: 'Populations (in millions)'
@@ -46,6 +43,13 @@ const chartOptions = computed(() => {
       bar: {
         borderRadius: 4,
         horizontal: true
+      }
+    },
+    tooltip: {
+      y: {
+        formatter: function (value: number) {
+          return value + 'M'
+        }
       }
     }
   }
