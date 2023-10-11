@@ -62,7 +62,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
           'whitespace-nowrap px-3 py-4 text-sm sm:table-cell'
         ]"
       >
-        <div v-html="country.name"></div>
+        <div v-html="country.computedName"></div>
       </td>
       <!-- Region -->
       <td
@@ -84,7 +84,7 @@ const handleSelectedCountry = (selectedCountry: ICountrySanitize) => {
           'whitespace-nowrap px-3 py-4 text-sm lg:table-cell'
         ]"
       >
-        <div v-html="country.capital"></div>
+        <div v-html="country.computedCapital"></div>
       </td>
     </tr>
   </tbody>

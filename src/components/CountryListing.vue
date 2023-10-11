@@ -34,12 +34,16 @@ const sanitizeCountry = (obj: ICountry): ICountrySanitize => {
   const newObj: any = filterAllowedObjectProperties(obj, allowedProperties)
   // name to string
   newObj.name = obj.name.common
+  // computedName
+  newObj.computedName = newObj.name
   // id
   newObj.id = newObj.name.replace(' ', '_').toUpperCase()
   // selected checkbox
   newObj.isSelected = getLocalSelectedCountries.value.includes(newObj.id)
   // capital to string
   newObj.capital = obj.capital ? obj.capital.join(', ') : ''
+  // computedCapital
+  newObj.computedCapital = newObj.capital
 
   return newObj
 }

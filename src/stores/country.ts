@@ -14,35 +14,68 @@ export const useCountryStore = defineStore('country', () => {
     allCountries.value = data
   }
   /**
-   * Country filtering section
+   * Country filtering & sorting section
    */
   // Search text
   const searchText = ref('')
+  // Sorting
+  const sorting = ref({
+    item: null as string | null,
+    sort: null as string | null
+  })
+  // Toggle sort
+  const toggleSort = () => {
+    if (sorting.value.sort === null) return (sorting.value.sort = 'ASC')
+    if (sorting.value.sort === 'ASC') return (sorting.value.sort = 'DESC')
+    if (sorting.value.sort === 'DESC') {
+      sorting.value.sort = null
+      sorting.value.item = null
+    }
+  }
+  // Set sorting option
+  const setSorting = (item: string) => {
+    // Reset sorting if select new item
+    if (sorting.value.item !== item) {
+      sorting.value.sort = null
+    }
+    sorting.value.item = item
+    toggleSort()
+  }
   // Get filtered countries
   const filteredCountries = computed(() => {
     const search = searchText.value.toLowerCase()
-    return (
-      allCountries.value
-        // Filter by search
-        .filter((country) => {
-          const name = country.name.toLowerCase()
-          const capital = country.capital?.toLowerCase()
+    const result = allCountries.value
+      // Filter by search
+      .filter((country) => {
+        const name = country.name.toLowerCase()
+        const capital = country.capital?.toLowerCase()
 
-          return name.includes(search) || capital?.includes(search)
-        })
-        // Highlighter
-        .map((country) => {
-          const result = {
-            ...country,
-            name: stringHighlighter(country.name, search)
-          }
-          if (country.capital && country.capital?.length > 0) {
-            result.capital = stringHighlighter(country.capital!, search)
-          }
+        return name.includes(search) || capital?.includes(search)
+      })
+      // Highlighter
+      .map((country) => {
+        const result = {
+          ...country,
+          computedName: stringHighlighter(country.computedName, search)
+        }
+        if (country.capital && country.capital?.length > 0) {
+          result.computedCapital = stringHighlighter(country.capital!, search)
+        }
 
-          return result
-        })
-    )
+        return result
+      })
+    // Sorting
+    if (sorting.value.item && sorting.value.sort) {
+      result.sort((prev, next) => {
+        const prevCountry = prev[sorting.value.item as keyof ICountrySanitize] as string
+        const nextCountry = next[sorting.value.item as keyof ICountrySanitize] as string
+        return sorting.value.sort === 'ASC'
+          ? prevCountry.localeCompare(nextCountry)
+          : nextCountry.localeCompare(prevCountry)
+      })
+    }
+
+    return result
   })
   /**
    * Country selection section
@@ -88,6 +121,8 @@ export const useCountryStore = defineStore('country', () => {
     getLocalSelectedCountries,
     setSelectedCountry,
     filterSelectedCountries,
-    setSelectAllCountries
+    setSelectAllCountries,
+    sorting,
+    setSorting
   }
 })
