@@ -4,17 +4,13 @@ import CountryTableBody from '@/components/CountryTableBody.vue'
 </script>
 
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
-    <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
-      <div class="w-full py-2 overflow-auto">
-        <table class="w-full border-separate border-spacing-0">
-          <!-- Table Head -->
-          <CountryTableHead data-test="table-head" />
-          <!-- Table Body -->
-          <CountryTableBody data-test="table-body" />
-        </table>
-      </div>
-    </div>
+  <div class="w-full mr-4 pb-2 overflow-auto h-[80dvh]">
+    <table class="w-full border-separate border-spacing-0">
+      <!-- Table Head -->
+      <CountryTableHead data-test="table-head" />
+      <!-- Table Body -->
+      <CountryTableBody data-test="table-body" />
+    </table>
   </div>
 </template>
 

@@ -66,7 +66,7 @@ const dataSeries = computed(() => {
     }
   ]
 })
-// 75% screen height
+// 70% screen height
 const height = computed(() => {
   return (70 / 100) * screen.height
 })

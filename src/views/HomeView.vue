@@ -4,7 +4,7 @@ import PopulationChart from '@/components/PopulationChart.vue'
 </script>
 
 <template>
-  <main class="max-w-[95dvw] mx-auto p-5">
+  <main class="fixed w-full h-screen px-10 py-5">
     <!-- Heading -->
     <h1 data-test="heading" class="text-3xl font-semibold">World Countries</h1>
     <!-- Descriptions -->
