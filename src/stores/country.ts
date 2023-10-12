@@ -42,6 +42,16 @@ export const useCountryStore = defineStore('country', () => {
     sorting.value.id = id
     toggleSort()
   }
+  // Sorting function
+  const sortCountries = (result: ICountrySanitize[]) => {
+    result.sort((prev, next) => {
+      const prevCountry = prev[sorting.value.id as keyof ICountrySanitize] as string
+      const nextCountry = next[sorting.value.id as keyof ICountrySanitize] as string
+      return sorting.value.sort === ESort.ASC
+        ? prevCountry.localeCompare(nextCountry)
+        : nextCountry.localeCompare(prevCountry)
+    })
+  }
   // Get filtered countries
   const filteredCountries = computed(() => {
     const search = searchText.value.toLowerCase()
@@ -69,13 +79,14 @@ export const useCountryStore = defineStore('country', () => {
       })
     // Sorting
     if (sorting.value.id && sorting.value.sort) {
-      result.sort((prev, next) => {
-        const prevCountry = prev[sorting.value.id as keyof ICountrySanitize] as string
-        const nextCountry = next[sorting.value.id as keyof ICountrySanitize] as string
-        return sorting.value.sort === ESort.ASC
-          ? prevCountry.localeCompare(nextCountry)
-          : nextCountry.localeCompare(prevCountry)
-      })
+      // result.sort((prev, next) => {
+      //   const prevCountry = prev[sorting.value.id as keyof ICountrySanitize] as string
+      //   const nextCountry = next[sorting.value.id as keyof ICountrySanitize] as string
+      //   return sorting.value.sort === ESort.ASC
+      //     ? prevCountry.localeCompare(nextCountry)
+      //     : nextCountry.localeCompare(prevCountry)
+      // })
+      sortCountries(result)
     }
 
     return result
@@ -87,9 +98,11 @@ export const useCountryStore = defineStore('country', () => {
   const SELECTED_COUNTRIES_KEY = 'selected_countries'
   // Filter selected countries
   const filterSelectedCountries = computed((): ICountrySanitize[] => {
-    // Filter by sorted items if not in search mode
-    if (searchText.value === '' && sorting.value.id && sorting.value.sort) {
-      return filteredCountries.value.filter((country) => country.isSelected)
+    // Filter by sorted items if in sorting
+    if (sorting.value.id && sorting.value.sort) {
+      const result = allCountries.value.filter((country) => country.isSelected)
+      sortCountries(result)
+      return result
     }
     // Filter by all countries by default
     return allCountries.value.filter((country) => country.isSelected)
