@@ -87,6 +87,11 @@ export const useCountryStore = defineStore('country', () => {
   const SELECTED_COUNTRIES_KEY = 'selected_countries'
   // Filter selected countries
   const filterSelectedCountries = computed((): ICountrySanitize[] => {
+    // Filter by sorted items if not in search mode
+    if (searchText.value === '' && sorting.value.id && sorting.value.sort) {
+      return filteredCountries.value.filter((country) => country.isSelected)
+    }
+    // Filter by all countries by default
     return allCountries.value.filter((country) => country.isSelected)
   })
   // Watch filtered data and save selected country by id to local storage
