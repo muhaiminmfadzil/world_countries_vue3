@@ -7,6 +7,7 @@ const countryStore = useCountryStore()
 const { filterSelectedCountries } = storeToRefs(countryStore)
 // Total no of country limit for graph visualization
 const limit = 20
+// TODO : refactor this
 // Number to millions formatter
 const toMillionsString = (value: number) => {
   return value + 'M'
